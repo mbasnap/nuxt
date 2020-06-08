@@ -77,23 +77,21 @@ module.exports = {
   // router: {
   //   middleware: 'log'
   // }
-  serverMiddleware: [bodyParser.json(), "~/api"],
-  generate: {
-    routes: function() {
-      console.log('fdsfdsfdssdsdassssssssss');
-      
-      return axios
-        .get("https://nuxt-blog.firebaseio.com/posts.json")
-        .then(res => {
-          const routes = [];
-          for (const key in res.data) {
-            routes.push({
-              route: "/posts/" + key,
-              payload: {postData: res.data[key]}
-            });
-          }
-          return routes;
-        });
-    }
-  }
+  // serverMiddleware: [bodyParser.json(), "~/api"],
+  // generate: {
+  //   routes: function() {
+  //     return axios
+  //       .get("https://nuxt-blog.firebaseio.com/posts.json")
+  //       .then(res => {
+  //         const routes = [];
+  //         for (const key in res.data) {
+  //           routes.push({
+  //             route: "/posts/" + key,
+  //             payload: {postData: res.data[key]}
+  //           });
+  //         }
+  //         return routes;
+  //       });
+  //   }
+  // }
 };

@@ -56,8 +56,6 @@ const createStore = () => {
         vuexContext.commit("setPosts", posts);
       },
       authenticateUser(vuexContext, authData) {
-        console.log(process.env.fbAPIKey);
-        
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
           process.env.fbAPIKey;
@@ -84,7 +82,7 @@ const createStore = () => {
               "expirationDate",
               new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
             );
-            return this.$axios.$post('http://localhost:3000/api/track-data', {data: 'Authenticated!'})
+            // return this.$axios.$post('http://localhost:3000/api/track-data', {data: 'Authenticated!'})
           })
           .catch(e => console.log(e));
       },
