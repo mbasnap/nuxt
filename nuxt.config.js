@@ -4,7 +4,7 @@ const axios = require("axios");
 require('dotenv').config()
 
 module.exports = {
-  mode: "spa",
+  mode: "uneversal",
 
   /*
   ** Headers of the page
@@ -80,6 +80,8 @@ module.exports = {
   serverMiddleware: [bodyParser.json(), "~/api"],
   generate: {
     routes: function() {
+      console.log('fdsfdsfdssdsdassssssssss');
+      
       return axios
         .get("https://nuxt-blog.firebaseio.com/posts.json")
         .then(res => {

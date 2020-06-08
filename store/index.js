@@ -1,5 +1,6 @@
 import Vuex from "vuex";
-import Cookie from "js-cookie";
+import Cookie from "js-cookie"
+const BASE_URL = "https://pshop-c2e82.firebaseio.com"
 
 const createStore = () => {
   return new Vuex.Store({
@@ -41,39 +42,22 @@ const createStore = () => {
           .catch(e => context.error(e));
       },
       addPost(vuexContext, post) {
-        const createdPost = {
-          ...post,
-          updatedDate: new Date()
-        };
-        return this.$axios
-          .$post(
-            "https://nuxt-blog.firebaseio.com/posts.json?auth=" +
-              vuexContext.state.token,
-            createdPost
-          )
-          .then(data => {
-            vuexContext.commit("addPost", { ...createdPost, id: data.name });
-          })
-          .catch(e => console.log(e));
+        const createdPost = { ...post, updatedDate: new Date() }
+        return this.$axios.$post(BASE_URL + "/posts.json?auth=" + vuexContext.state.token, createdPost)
+          .then(data => vuexContext.commit("addPost", { ...createdPost, id: data.name }))
+            .catch(e => console.log(e))
       },
       editPost(vuexContext, editedPost) {
-        return this.$axios
-          .$put(
-            "https://nuxt-blog.firebaseio.com/posts/" +
-              editedPost.id +
-              ".json?auth=" +
-              vuexContext.state.token,
-            editedPost
-          )
-          .then(res => {
-            vuexContext.commit("editPost", editedPost);
-          })
-          .catch(e => console.log(e));
+        return this.$axios.$put(BASE_URL + "/posts/" + editedPost.id + ".json?auth=" + vuexContext.state.token, editedPost)
+            .then(() => vuexContext.commit("editPost", editedPost))
+              .catch(e => console.log(e));
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
       },
       authenticateUser(vuexContext, authData) {
+        console.log(process.env.fbAPIKey);
+        
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
           process.env.fbAPIKey;
